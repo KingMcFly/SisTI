@@ -1,75 +1,147 @@
-# SisTI
- Sistema TI Tuniche
+# SISTEMA TI TUNICHE SETUP
 
+## 1. Clonar/Obtener el Proyecto
+Clona el repositorio desde tu herramienta de control de versiones (Git, etc.) o descarga la carpeta del proyecto Laravel. 
 
-1. Clonar/Obtener el proyecto
-Clonar el repositorio desde tu herramienta de control de versiones (Git, etc.) o descargar la carpeta del proyecto Laravel.
-Sitúate en la carpeta principal del proyecto. Allí verás los archivos típicos de Laravel: composer.json, artisan, .env.example, config/, app/, etc.
-2. Instalar dependencias con Composer
-En la carpeta raíz del proyecto, abre tu terminal y ejecuta:
+Entra a la carpeta principal del proyecto donde encontrarás archivos típicos de Laravel como:
+- `composer.json`
+- `artisan`
+- `.env.example`
+- Carpetas como `config/`, `app/`, etc.
 
-bash
-Copiar
+---
+
+## 2. Instalar Dependencias con Composer
+
+Ejecuta el siguiente comando desde la raíz del proyecto para instalar las dependencias necesarias:
+
+```bash
 composer install
-Esto descargará e instalará todas las librerías requeridas (indicadas en composer.json).
-3. Copiar y configurar el archivo .env
-Si existe un archivo .env.example, cópialo o renómbralo a .env.
+```
 
-bash
-Copiar
+Esto descargará todas las librerías requeridas definidas en `composer.json`.
+
+---
+
+## 3. Copiar y Configurar el Archivo `.env`
+
+Copia el archivo `.env.example` y renómbralo como `.env`:
+
+```bash
 cp .env.example .env
-(En Windows, puedes simplemente copiar y renombrar manualmente.)
+```
 
-Abre tu archivo .env en un editor de texto y actualiza los valores de conexión a base de datos, por ejemplo:
+En Windows, también puedes copiarlo y renombrarlo manualmente.
 
-env
-Copiar
+Edita el archivo `.env` y actualiza los valores de conexión a la base de datos. Por ejemplo:
+
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=prestamos_db
 DB_USERNAME=root
 DB_PASSWORD=
-Ajusta los valores según tu servidor MySQL/MariaDB (o el motor que uses).
+```
 
-Generar la clave de aplicación (APP_KEY) con:
+Genera la clave de aplicación ejecutando:
 
-bash
-Copiar
+```bash
 php artisan key:generate
-4. Crear la base de datos (si no existe)
-En tu servidor de base de datos (MySQL, PostgreSQL, etc.), crea una base de datos llamada, por ejemplo, prestamos_db.
-Asegúrate de que el usuario (root o cualquiera) tenga los permisos adecuados.
-5. Migrar la base de datos
-Para crear todas las tablas necesarias (personals, catalogos, prestamos, devoluciones, etc.), ejecuta:
+```
 
-bash
-Copiar
+---
+
+## 4. Crear la Base de Datos (Si No Existe)
+
+Crea una base de datos en tu servidor (por ejemplo, MySQL o MariaDB) con el nombre definido en `.env`, como `prestamos_db`.
+
+Asegúrate de que el usuario configurado tenga permisos adecuados para acceder y modificar la base de datos.
+
+---
+
+## 5. Migrar la Base de Datos
+
+Ejecuta las migraciones para crear las tablas necesarias:
+
+```bash
 php artisan migrate
-Esto leerá tus archivos de migración en database/migrations/ y creará las tablas en la base de datos que configuraste en .env.
+```
 
-Si necesitas cargar datos de prueba, puedes usar seeders (por ejemplo, php artisan db:seed), siempre y cuando tengas configurados tus seeders.
+Esto leerá los archivos de migración en `database/migrations/` y generará las tablas en la base de datos configurada.
 
-6. Iniciar el servidor de desarrollo
-Para ver el proyecto en acción, ejecuta:
+Si necesitas cargar datos de prueba, puedes ejecutar los seeders:
 
-bash
-Copiar
+```bash
+php artisan db:seed
+```
+
+---
+
+## 6. Iniciar el Servidor de Desarrollo
+
+Para ejecutar la aplicación en tu entorno local, utiliza:
+
+```bash
 php artisan serve
-Por defecto, se abrirá en http://127.0.0.1:8000. Copia y pega esa URL en tu navegador. Deberías ver tu pantalla de bienvenida de Laravel o la página principal de tu aplicación.
+```
 
-Si estás en un entorno de producción, en lugar de php artisan serve usarás Apache / Nginx configurado para apuntar al directorio public/.
+Por defecto, el servidor estará disponible en: [http://127.0.0.1:8000](http://127.0.0.1:8000). Abre esa URL en tu navegador.
 
-7. Flujo final
-Instala (composer install).
-Crea .env y ajusta la DB.
-php artisan key:generate.
-Crea la base de datos en tu motor.
-php artisan migrate (crea tablas).
-php artisan serve (inicia servidor local).
-Abre http://127.0.0.1:8000 para ver la aplicación.
-Posibles problemas comunes
-“SQLSTATE[HY000] [1045] Access denied for user”: Significa que tus credenciales en .env no son correctas para la base de datos.
-“SQLSTATE[42S02]: Base table or view not found”: Ocurre si no has ejecutado php artisan migrate o si la migración falló.
-Permisos en Windows: Asegúrate de tener acceso de lectura/escritura en la carpeta, especialmente al usar WAMP/XAMPP.
-Falta APP_KEY: Si no generaste la clave de app con key:generate, Laravel puede mostrar un error “No application encryption key has been specified”.
+En un entorno de producción, utiliza un servidor como Apache o Nginx y apunta al directorio `public/`.
+
+---
+
+## 7. Flujo Final Resumido
+1. Clona el repositorio y entra a la carpeta.
+2. Instala dependencias con:
+   ```bash
+   composer install
+   ```
+3. Configura `.env` y ajusta la base de datos.
+4. Genera la clave de aplicación:
+   ```bash
+   php artisan key:generate
+   ```
+5. Crea la base de datos en tu motor.
+6. Migra las tablas:
+   ```bash
+   php artisan migrate
+   ```
+7. Inicia el servidor local:
+   ```bash
+   php artisan serve
+   ```
+8. Abre [http://127.0.0.1:8000](http://127.0.0.1:8000) en tu navegador.
+
+---
+
+## Posibles Problemas Comunes
+
+### Error: `SQLSTATE[HY000] [1045] Access denied for user`
+
+Revisa las credenciales configuradas en tu archivo `.env`.
+
+### Error: `SQLSTATE[42S02]: Base table or view not found`
+
+Asegúrate de haber ejecutado las migraciones (`php artisan migrate`).
+
+### Permisos en Windows
+
+En entornos como WAMP o XAMPP, verifica que tengas permisos de lectura/escritura en la carpeta del proyecto.
+
+### Falta de APP_KEY
+
+Si no generas la clave de aplicación (`php artisan key:generate`), Laravel mostrará un error: "No application encryption key has been specified".
+
+---
+
+## Resumen
+
+- **Clona** el repositorio y entra en la carpeta.
+- **Instala dependencias** con `composer install`.
+- **Configura `.env`** y la base de datos.
+- **Migra las tablas** con `php artisan migrate`.
+- **Inicia el servidor local** con `php artisan serve`.
+
+¡Listo! Con estos pasos tendrás tu proyecto Laravel listo para usarse. 🎉
