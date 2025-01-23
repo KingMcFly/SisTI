@@ -1,7 +1,7 @@
 # SISTEMA TI TUNICHE SETUP
 
-## 1. Clonar/Obtener el Proyecto
-Clona el repositorio desde tu herramienta de control de versiones (Git, etc.) o descarga la carpeta del proyecto Laravel. 
+## 1. Obtener el Proyecto
+descarga la carpeta del proyecto y extraer
 
 Entra a la carpeta principal del proyecto donde encontrarás archivos típicos de Laravel como:
 - `composer.json`
